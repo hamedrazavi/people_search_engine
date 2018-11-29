@@ -18,6 +18,7 @@ user_agents[4] = 'Opera/9.80 (Windows NT 6.1; WOW64) Presto/2.12.388 Version/12.
 user_agents[5] = 'Mozilla/5.0 (Linux; U; Android 4.0.4; pt-br; MZ608 Build/7.7.1-141-7-FLEM-UMTS-LA) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Safari/534.30'
 user_agents[6] = 'Dalvik/1.6.0 (Linux; U; Android 4.4.4; WT19M-FI Build/KTU84Q)'
 user_agents[7] = 'Mozilla/5.0 (Linux; U; Android 2.3.6; en-us; LG-L38C Build/GRK39F) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1 MMS/LG-Android-MMS-V1.0/1.2'
+user_agents[8] = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.110 Safari/537.36'
 
 accept_lang = {}
 accept_lang[0] = 'en-US,en;q=0.9,fa;q=0.8,fr;q=0.7'
@@ -31,10 +32,10 @@ request_headers = {
     'accept-encoding': 'gzip, deflate, br',
     'accept-language': accept_lang[2],
     'cache-control': 'max-age=0',
-    'cookie': 'bcookie="v=2&e2b334d5-7bd4-40ac-818d-4d8cbda0b965"; bscookie="v=1&201810161905207570283f-ddb6-4bf4-89b8-28fbf0374ed8AQE2LYO2WS8xcHO64GBsUe5FX-x0YDYK"; _ga=GA1.2.1412527673.1539716986; _guid=562fb94e-964b-4d11-9af0-d143a967275d; visit="v=1&M"; spectroscopyId=886774b9-f892-4098-9626-c48cf2f6e375; PLAY_SESSION=4e360b9c03e09f73f941a400077a9cfa7a35da6b-jobsEmailMember=1; lil-lang=en_US; __utmc=226841088; UserMatchHistory=AQK31IcBpqP6cAAAAWcsr-0p3gZ3n-ko8ZjJcuSAG7k_-kpWudcXZpf-vr1yZKeliy-tDLRwmTAzc-zNGfI3bK6S46JSXNkb3QrJZmk; li_oatml=AQH2SpjfVdo0aQAAAWcsr-8kySdjIJXRnLoosGSWDyv55fwmGyKoEwgKkaObfAhsfhgmyC7BZEeeV8stKlIG5qPNVOAaLKJq; utag_main=v_id:0166b67c39d1000b328aa91b497903079002207100ac2$_sn:34$_ss:0$_st:1542646226879$_se:12$ses_id:1542642986879%3Bexp-session$_pn:2%3Bexp-session; sdsc=1%3A1SZM1shxDNbLt36wZwCgPgvN58iw%3D; _lipt=CwEAAAFnQkO_oWkCOMbzpIbmgztYQEwrf1-juyYZfsWNPVry4Hf1ozofzz_P73JOacuyrP04MMoNkHvg_bHOFkhGBAj1NNtph72SJ7cLGAXvVFfpansmw3WhXjPIdXjOjJxHGKjxfYfzIQo6VToDtDY74XniDSY9sgIWPkTO4QjYotzzApkE0ntcRTuaTrF_O_6fySQWzYkrpiVONYNDOJuqxue2xl-xtSWh3CVhRwkPDIadp1lGzV1Ds0rFepXUmur6sIxJX4jzGXCUjJtGzCFQed4QgvLIwYetVPaB56t1j0gLm7H4FIpvvW-N5mdzy8JP_DomX3LgFN8KdKH25iTGDjf7SZ2t4vDvd0NlQIDeIhdUSMNlcOLWaqjMQKChU0TAcCs3O5YBQISHDBWedxs0DbzehqVHL5HKYCP86uNf_LB8W4-A2BaBhLk0csR7i3vjBkB41tV8GdQIK2vrwEdDhjK0j9FmOihpaoGEfNrIH3NxXBGWDrCexovGGKiKsONOlrxi1Z4yMuzGuDqLbOwVjz37EIjj1inUZw; lang="v=2&lang=en-us"; JSESSIONID="ajax:5606231106206409384"; lidc="b=TGST01:g=1276:u=1:i=1543045671:t=1543132071:s=AQF2isHXU93iYpPIVlxgzTriC2cxkS7z"; __utma=226841088.1412527673.1539716986.1542960600.1543045691.3; __utmz=226841088.1543045691.3.3.utmcsr=google|utmccn=(organic)|utmcmd=organic|utmctr=(not%20provided); fid=AQHCB3CjiaFpswAAAWdEsQ5HC2WXcZXXMsEy9JK4NX0sGMEPWjx4ARD9MUHsssf1cugFJUEYJvHUTw; fcookie=AQHKPvQFw8o1NQAAAWdEsXOIT0auigEtJcwVzd3KnR1BeHPTrgJrgKC0snCh7YHejVYJB0UJ29Sl5bB1eG28-2o3Yl5JVIeoZM6LjNBeHv9BPsEQDuatCxzMK0k5kImxdsv90dRa7BAld1CBjef9u0iGNVPbdIbOGGmMvPuCLY4xWnBp27ycf03A9c_cly300XOLcC4JnASPiXycy7pQC+g2Itx44975sKXzqom6+CwsbWpaQfJNEyiywZ1Rqton+P0tk3Te/0mk07pODiLLlUj+RslHG95CFDRV5py61w==; __utmb=226841088.4.10.1543045691',
-    'dnt': dnt_status[0],
+    'cookie': 'bcookie="v=2&e2b334d5-7bd4-40ac-818d-4d8cbda0b965"; bscookie="v=1&201810161905207570283f-ddb6-4bf4-89b8-28fbf0374ed8AQE2LYO2WS8xcHO64GBsUe5FX-x0YDYK"; _ga=GA1.2.1412527673.1539716986; _guid=562fb94e-964b-4d11-9af0-d143a967275d; visit="v=1&M"; UserMatchHistory=AQK31IcBpqP6cAAAAWcsr-0p3gZ3n-ko8ZjJcuSAG7k_-kpWudcXZpf-vr1yZKeliy-tDLRwmTAzc-zNGfI3bK6S46JSXNkb3QrJZmk; li_oatml=AQH2SpjfVdo0aQAAAWcsr-8kySdjIJXRnLoosGSWDyv55fwmGyKoEwgKkaObfAhsfhgmyC7BZEeeV8stKlIG5qPNVOAaLKJq; utag_main=v_id:0166b67c39d1000b328aa91b497903079002207100ac2$_sn:34$_ss:0$_st:1542646226879$_se:12$ses_id:1542642986879%3Bexp-session$_pn:2%3Bexp-session; fid=AQH5w4RtWYQjlgAAAWdWoPdvxqojrMbRvSldylcrfHKemeIvQZpY5PSHhRnlqjlZyMW4BNenkbon2g; _lipt=CwEAAAFnXt-R0EDHzjFKVdv-wX4uRhCWyQBbrw5kyjENCyrIaTkXuN80UYnNtw9A4KKd5lqX-LFfxcixzctlvsjCxZserdbZ5RbBFjp20TafCNhiUbJQUGxDRgyqqyCEGE7CdPjG2NFOjsKnvRWcbpPuGJz7ni623aLToflp95RwEN5vaM6fIMvJ82WUM1l8oZ581T4zB3tnMkoR87tTybeCos3jN_eA61u7HHOGvpYRpWq0Zd_biDPAFCwFYZW4lFcVXNEpMOUyFavMCsnNo4eSQ5pJGcGEHlyvg4tFBweZPMpN9haZQ4Z-uC0lmfg3IsDUz6veSQI1d4lI6SCRV59qS0PoNW3PifDN3ew4Bn-1L9zXfQ81ACAeg2g0SrCGsJa4Fjz7vIaVQn_Eac94gK2K4vhrsk92BJHejRoJg2xXk2NMCYA9X5ocNigdpM9_CnjnxPGCiv7VKkwsMHgIATmSh1fdZxsJNWocYqEd4hQ_mBQo9EBOIIWVeyfqfK5NsrVxj8pgvIcwlNjR8b6uCzwCSA7qH4_8RNCpAyJidaNNTOIw; lang="v=2&lang=en-us"; JSESSIONID="ajax:3061814917723843491"; lidc="b=VGST01:g=1198:u=1:i=1543528908:t=1543615308:s=AQHJZEQOiX6QbdxZNXZ5L8dXbcLUhvAP"; __utma=226841088.1412527673.1539716986.1543442701.1543528911.11; __utmc=226841088; __utmz=226841088.1543528911.11.8.utmcsr=google|utmccn=(organic)|utmcmd=organic|utmctr=(not%20provided); __utmt=1; __utmb=226841088.1.10.1543528911; _gat=1',
+    'dnt': dnt_status[1],
     'upgrade-insecure-requests': '1',
-    'user-agent': user_agents[2],
+    'user-agent': user_agents[8],
     }
 
 geocoders.options.default_user_agent = 'HamedRazavi2/'
@@ -216,7 +217,8 @@ class LinkedinPeopleFinder:
         else:
             try:
                 text = self.get_url(person)
-            except:
+            except Exception as e:
+                print(e)
                 return ''
         users_map = defaultdict(list)
         try:
@@ -241,7 +243,8 @@ class LinkedinPeopleFinder:
         try:
             users_map = self.find_users(person, path, offline)
             return pd.DataFrame(users_map)
-        except:
+        except Exception as e:
+            print(e)
             return ''
     
     def is_listedname_similar(self, person, listed_name):
@@ -315,7 +318,8 @@ class LinkedinPeopleFinder:
         """
         try:
             persons = self.find(person, path, offline, strict_match)
-        except:
+        except Exception as e:
+            print(e)
             return ''
         keys = person.keys()
         persons_map = {key:[] for key in keys}
