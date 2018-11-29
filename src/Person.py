@@ -1,10 +1,10 @@
 class Person:
-    def __init__(self, first_name='', last_name=''):
+    def __init__(self, first_name='', last_name='', domicile = '', nationality = ''):
         self.first_name = first_name.capitalize()
         self.last_name = last_name.capitalize()
         self.middle_name = ''
-        self.nationality = ''
-        self.domicile = ''
+        self.nationality = nationality
+        self.domicile = domicile
         self.dob = '' # Date of birth
         self.occupation = ''
         self.net_worth = ''

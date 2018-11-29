@@ -152,7 +152,6 @@ class LinkedinPeopleFinder:
         loc = None
         try:
             loc = gn.geocode(language='en', exactly_one=True, query=location, addressdetails=True, timeout=2)
-            lo
         except GeocoderTimedOut:
             loc = gn.geocode(language='en', exactly_one=True, query=location, addressdetails=True)
         except Exception as e:
@@ -175,8 +174,11 @@ class LinkedinPeopleFinder:
             print("Geocoder connection issue?", e)
             pass
         if loc:
-            country_code = loc.raw['metaDataProperty']['GeocoderMetaData']['Address']['country_code']
-            return country_code.upper()
+            try:
+                country_code = loc.raw['metaDataProperty']['GeocoderMetaData']['Address']['country_code']
+                return country_code.upper()
+            except:
+                return ''
         else:
             return ''
         
@@ -195,6 +197,7 @@ class LinkedinPeopleFinder:
             person.description = user_map['education'] + '; ' + user_map['headline']
         else:
             person.description = user_map['education'] + '; ' + user_map['summary']
+        person.set_raw()
         return person
     
     def find_users(self, person, path='', offline=1):
@@ -203,7 +206,7 @@ class LinkedinPeopleFinder:
         If 'offline = 1', then the 'path' to the downloaded
         html file must be given. 
         'person' is an instant of the Person class
-        Returns the users matching 'person' as a list of maps
+        Returns the raw Linkedin users matching 'person' as a list of maps
         """
         if offline:
             try:
@@ -233,7 +236,7 @@ class LinkedinPeopleFinder:
         If 'offline = 1', then the 'path' to the downloaded
         html file must be given. 
         'person' is an instant of the Person class
-        Returns the users matching 'person' as a Pandas dataframe
+        Returns the raw Linkedin users matching 'person' as a Pandas dataframe
         """
         try:
             users_map = self.find_users(person, path, offline)
@@ -241,17 +244,50 @@ class LinkedinPeopleFinder:
         except:
             return ''
     
-    def find(self, person, path='', offline=1):
+    def is_listedname_similar(self, person, listed_name):
+        """
+        Check if the user listed name in Twitter mataches the first
+        and last names of the person.
+        """
+        first_name = person.first_name.lower()
+        last_name = person.last_name.lower()
+        listed_name_lower = listed_name.lower()
+        i_f = listed_name_lower.find(first_name)
+        i_l = listed_name_lower.find(last_name)
+        return (not i_f == -1) & (not i_l == -1)
+
+    def __is_match(self, person, p, strict_match):
+        """
+        Check if the optional fields of given 'person', such as middle name, 
+        domicile and nationality matches with the person 'p' found.
+        Note that "listed name" is already checked before calling this function in 
+        the 'find' method.
+        """
+        cond1 = person.domicile.lower() == p.domicile.lower()
+        cond2 = person.domicile.lower() == p.nationality.lower()
+        cond3 = (p.domicile == '') & (p.nationality == '')
+        cond4 = True
+        if strict_match:
+            cond4 =  (person.first_name.lower() == p.first_name.lower()) & (person.last_name.lower() == p.last_name.lower())
+        if (cond1 | cond2 | cond3) & cond4:
+            return True
+        else:
+            return False
+
+    def find(self, person, path='', offline=1, strict_match=0):
         """
         Allows both online and offline Linkedin scarping. 
         If 'offline = 1', then the 'path' to the downloaded
         html file must be given. 
         'person' is an instant of the Person class
+        If strict_match=1 then the first name and last name of the found users
+        must match with the given person. 
         Returns the raw users data matching 'person' as a list of Person class
         """
         try:
             users_map = self.find_users(person, path, offline)
-        except:
+        except Exception as e:
+            print(e)
             return ''
         n = len(users_map['listed_name'])
         keys = users_map.keys()
@@ -259,23 +295,26 @@ class LinkedinPeopleFinder:
         try:
             for i in range(n):
                 user_map = {key:users_map[key][i] for key in keys}
-                p = self.user_map_to_person(user_map)
-                p.set_raw()
-                persons.append(p)
+                if self.is_listedname_similar(person, user_map['listed_name']):
+                    p = self.user_map_to_person(user_map)
+                    if self.__is_match(person, p, strict_match):
+                        persons.append(p)
             return persons
         except:
             return ''
     
-    def find_as_df(self, person, path='', offline=1):
+    def find_as_df(self, person, path='', offline=1, strict_match=0):
         """
         Allows both online and offline Linkedin scarping. 
         If 'offline = 1', then the 'path' to the downloaded
         html file must be given. 
         'person' is an instant of the Person class
+        If strict_match=1 then the first name and last name of the found users
+        must match with the given person. 
         Returns the users matching 'person' a Pandas dataframe
         """
         try:
-            persons = self.find(person, path, offline)
+            persons = self.find(person, path, offline, strict_match)
         except:
             return ''
         keys = person.keys()

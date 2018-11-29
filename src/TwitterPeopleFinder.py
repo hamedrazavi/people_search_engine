@@ -6,6 +6,7 @@ import re
 import pandas as pd
 from collections import defaultdict
 from geopy.exc import GeocoderTimedOut
+from nameparser import HumanName
 
 geocoders.options.default_user_agent = 'HamedRazavi/'
 gn = geocoders.Nominatim() 
@@ -44,7 +45,7 @@ class TwitterPeopleFinder:
         listed_name_lower = listed_name.lower()
         i_f = listed_name_lower.find(first_name)
         i_l = listed_name_lower.find(last_name)
-        return (not (i_f == -1)) & (i_f < i_l)
+        return (not i_f == -1) & (not i_l == -1)
     
     def get_user_map(self, user):
         user_map = {
@@ -105,8 +106,11 @@ class TwitterPeopleFinder:
             print("Geocoder connection issue?", e)
             pass
         if loc:
-            country_code = loc.raw['metaDataProperty']['GeocoderMetaData']['Address']['country_code']
-            return country_code.upper()
+            try:
+                country_code = loc.raw['metaDataProperty']['GeocoderMetaData']['Address']['country_code']
+                return country_code.upper()
+            except:
+                return ''
         else:
             return ''
         
@@ -149,39 +153,71 @@ class TwitterPeopleFinder:
             follow_ratio = user.followers_count / (user.friends_count + 1)
             followers_net_normalized = followers_net / self.get_account_age(user.created_at)
             cond1 = (followers_net > 1000) & (follow_ratio > 100) & (user.verified == 1)
-            cond2 = (followers_net > 10000) & (follow_ratio > 1000)
+            cond2 = (followers_net_normalized > 10000) & (follow_ratio > 1000)
             is_famous = cond1 | cond2
             return is_famous
         except Exception as e:
             print(e)
             return ''        
 
-    def find(self, person, page_number=1):
+    def user_to_person(self, user):
         """
+        Converts Twitter api generic user output to person as 
+        an instance of the Person class
+        """
+        person = Person()
+        name_split = HumanName(user.name)
+        person.first_name = name_split.first
+        person.middle_name = name_split.middle
+        person.last_name = name_split.last
+        person.domicile = self.get_country_code(user.location)
+        person.description = user.description
+        person.occupation = self.extract_occupation(user.description, occupations)
+        person.is_famous = self.is_famous(user)
+        person.set_raw()
+        return person
+
+    def __is_match(self, person, p, strict_match):
+        """
+        Check if the optional fields of given 'person', such as middle name, 
+        domicile and nationality matches with the person 'p' found.
+        Note that "listed name" is already checked before calling this function in 
+        the 'find' method.
+        """
+        cond1 = person.domicile.lower() == p.domicile.lower()
+        cond2 = person.domicile.lower() == p.nationality.lower()
+        cond3 = (p.domicile == '') & (p.nationality == '')
+        cond4 = True
+        if strict_match:
+            cond4 =  (person.first_name.lower() == p.first_name.lower()) & (person.last_name.lower() == p.last_name.lower())
+        if (cond1 | cond2 | cond3) & cond4:
+            return True
+        else:
+            return False
+
+    def find(self, person, strict_match=0, page_number=1):
+        """
+        Note that the given 'person' nationality and domicile either should
+        be empty or based on ISO 3166 alpha 2 coding. (e.g., US for United States
+        of America and not USA)
+        If strict_match=1 then the first name and last name of the found users
+        must match with the given person. 
         Returns the users which match 'person' as a list of Person() class
         """
         users = self.find_users(person, page_number=page_number)
         persons = []
         for user in users:
             if self.is_listedname_similar(person, user.name):
-                p = Person(person.first_name, person.last_name)
-                if person.middle_name:
-                    p.middle_name = person.middle_name
-                else:
-                    p.middle_name = self.get_middle_name(person, user.name)
-                p.domicile = self.get_country_code(user.location)
-                p.occupation = self.extract_occupation(user.description, occupations)
-                p.is_famous = self.is_famous(user)
-                p.description = user.description
-                p.set_raw()
-                persons.append(p)
+                p = self.user_to_person(user)
+                if self.__is_match(person, p, strict_match):
+                    persons.append(p)
         return persons
     
-    def find_as_df(self, person, page_number=1):
+    def find_as_df(self, person, strict_match=0, page_number=1):
         """
         Returns the users which match 'person' as a Pandas dataframe. 
         """
-        persons = self.find(person, page_number=page_number)
+        persons = self.find(person, strict_match, page_number=page_number)
         df = pd.DataFrame()
         for person in persons:
             dfperson = person.to_df(pd)
