@@ -5,10 +5,11 @@ from datetime import datetime
 import re
 import pandas as pd
 from collections import defaultdict
+from geopy.exc import GeocoderTimedOut
 
 geocoders.options.default_user_agent = 'HamedRazavi/'
 gn = geocoders.Nominatim() 
-
+gy = geocoders.Yandex(lang='en')
 
 fl = open('../data/occupations.csv', 'r')
 occupations_raw = fl.read()
@@ -154,7 +155,7 @@ class TwitterPeopleFinder:
         except Exception as e:
             print(e)
             return ''        
-        
+
     def find(self, person, page_number=1):
         """
         Returns the users which match 'person' as a list of Person() class
