@@ -1,10 +1,10 @@
 # People Search Engine
 
-This project includes the Python classes for finding people online given their first and last names. There are overall 3 different people finder classes: `WikiPeopleFinder, TwitterPeopleFinder` and `LinkedinPeopleFinder`.  Moreover, the class `GoogleNetWorthFinder` finds the net worth of a person given the first and last names, if such information exist in the google main search results. Also, a `Person` class is defined to handle the input and output of the people finders easier. The attributes of the `Person` class include `first_name, middle_name, last_name, nationality (ISO 3166 alpha 2), domicile (ISO 3166 alpha 2), dob (date of birth), is_famous (True or False), net_worth (in USD), description (summary) `. 
+This project includes the Python classes for finding people online given their first and last names. There are overall 3 different people finder classes: `WikiPeopleFinder, TwitterPeopleFinder` and `LinkedinPeopleFinder`.  Moreover, the class `GoogleNetWorthFinder` finds the net worth of a person given the first and last names, if such information exists in the google main search results. Also, a `Person` class is defined to handle the input and output of the people finder classes easier. The attributes of the `Person` class include `first_name, middle_name, last_name, nationality (ISO 3166 alpha 2), domicile (ISO 3166 alpha 2), dob (date of birth), is_famous (True or False), net_worth (in USD), description (summary) `. 
 
 **Note:** To use the `TwitterPeopleFinder` you need to provide your `CONSUMER_KEY, CONSUMER_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET`. If you don't have these credentials head to [here](https://developer.twitter.com/en/docs/basics/authentication/guides/access-tokens.html). If you don't have an already existing app, it may take a day or more to get your tokens.
 
-The people finder classes here have mostly similar interfaces. Below you can find a quick example on how to use the`WikiPeopleFinder` class. Also, the notebook `main.ipynb` includes more examples and instructions on how to use the people finder classes. 
+The people finder classes mostly have similar interfaces. Below you can find a quick example on how to use the`WikiPeopleFinder` and   `TwitterPeopleFinder`  classes. Also, the notebook `main.ipynb` includes more examples and instructions on how to use the people finder classes. 
 
 ## Installation 
 
