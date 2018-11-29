@@ -12,6 +12,8 @@ Please follow the instructions in [packages_list.md](./packages_list.md), to ins
 
 ## Quick Start
 
+`WikiPeopleFinder` example:
+
 ```python
 # Import
 from Person import Person
@@ -29,7 +31,29 @@ wikifinder.find(person) # This will update the attributes of the person class
 # Show the output
 print(person.raw)
 
-# Find the person and display the result in Pandas dataframe
+# Find the person and display the result as a Pandas dataframe
 wikifinder.find_as_df(person)
+```
+
+`TwitterPeopleFinder` example:
+
+```python
+# Import
+from Person import Person
+from TwitterPeopleFinder import TwitterPeopleFinder
+
+# Copy-paste your Twitter api keys and tokens 
+CONSUMER_KEY = tokens['CONSUMER_KEY']
+CONSUMER_SECRET = tokens['CONSUMER_SECRET']
+OAUTH_TOKEN = tokens['OAUTH_TOKEN']
+OAUTH_TOKEN_SECRET = tokens['OAUTH_TOKEN_SECRET']
+
+twitterfinder = TwitterPeopleFinder(CONSUMER_KEY, CONSUMER_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
+
+# Instantiate the Person class (note the location condition)
+person = Person(first_name="Jim", last_name="Carrey", domicile='US')
+
+# Find the person in Twitter users and display the result as a Pandas dataframe
+twitterfinder.find_as_df(person)
 ```
 
