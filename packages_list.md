@@ -1,6 +1,6 @@
 # List of Packages
 
-Other than the usual packages such as `pandas`, below is the list of the packages to be installed. `<venv_name>` is the name of your conda virtual environment. It is recommended that you install `anaconda` beforehand: `conda install -yn <venv_name> anaconda`. Please beware that `anaconda` is a huge package and the installation process might take quite some time.  
+Other than the usual packages such as `pandas`, below is the list of the packages to be installed. `<venv_name>` is the name of your conda virtual environment. It is recommended (not required) that you install `anaconda` beforehand: `conda install -yn <venv_name> anaconda`. Please beware that `anaconda` is a huge package and the installation process might take quite some time.  
 
 ## Requests
 

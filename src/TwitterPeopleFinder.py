@@ -80,7 +80,7 @@ class TwitterPeopleFinder:
         return df_users
         
     
-    def get_country_code(self, location):
+    def get_country_code_old(self, location):
         loc = None
         try:
             loc = gn.geocode(language='en', exactly_one=True, query=location, extratags=True, addressdetails=True)
@@ -89,6 +89,22 @@ class TwitterPeopleFinder:
             pass
         if loc:
             country_code = loc.raw['address']['country_code']
+            return country_code.upper()
+        else:
+            return ''
+        
+    def get_country_code(self, location):
+        location = location.replace('Greater', '')
+        loc = None
+        try:
+            loc = gy.geocode(query=location, timeout=2)
+        except GeocoderTimedOut:
+            loc = gy.geocode(query=location)
+        except Exception as e:
+            print("Geocoder connection issue?", e)
+            pass
+        if loc:
+            country_code = loc.raw['metaDataProperty']['GeocoderMetaData']['Address']['country_code']
             return country_code.upper()
         else:
             return ''
